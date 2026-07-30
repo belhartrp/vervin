@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { signUp } from "./actions";
 
-export default function SignUpPage() {
+export default async function SignUpPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ error?: string }>;
+}) {
+  const params = searchParams ? await searchParams : {};
+
   return (
     <>
       <style>{`
@@ -34,6 +40,12 @@ export default function SignUpPage() {
           </div>
 
           <div className="p-6 sm:p-7">
+            {params?.error ? (
+              <div className="mb-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                {params.error}
+              </div>
+            ) : null}
+
             <form action={signUp} className="space-y-5">
               <div>
                 <label

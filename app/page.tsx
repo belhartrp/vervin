@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const PUBLIC_PREVIEW_URL = "https://linkora-eight-kappa.vercel.app/belhartrp";
+const PUBLIC_PREVIEW_URL = "https://vervin.vercel.app/belhartrp";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -15,7 +15,7 @@ const NAV_LINKS = [
 const FEATURES = [
   {
     title: "Pilih template yang tersedia",
-    desc: "Mulai dari template yang sudah tersedia untuk halaman publikmu. Saat ini Linkora berfokus pada Bio Link, sambil menyiapkan fondasi untuk template lain ke depannya.",
+    desc: "Mulai dari template yang sudah tersedia untuk halaman publikmu. Saat ini Vervin berfokus pada Bio Link, sambil menyiapkan fondasi untuk template lain ke depannya.",
     img: "right",
     icon: "🧩",
     illustrationKey: "template",
@@ -45,8 +45,8 @@ const FEATURES = [
 
 const FAQS = [
   {
-    q: "Apa yang bisa saya buat di Linkora sekarang?",
-    a: "Saat ini Linkora berfokus pada template Bio Link untuk halaman publik yang ringkas dan mudah dibagikan.",
+    q: "Apa yang bisa saya buat di Vervin sekarang?",
+    a: "Saat ini Vervin berfokus pada template Bio Link untuk halaman publik yang ringkas dan mudah dibagikan.",
   },
   {
     q: "Apakah saya perlu coding untuk menggunakannya?",
@@ -260,7 +260,7 @@ export default function LandingPage() {
               height="28"
               viewBox="0 0 28 28"
               fill="none"
-              aria-label="Linkora logo"
+              aria-label="Vervin logo"
             >
               <rect width="28" height="28" rx="7" fill="#7C3AED" />
               <path
@@ -271,7 +271,7 @@ export default function LandingPage() {
               />
             </svg>
             <span className="text-xl font-bold tracking-tight text-gray-900">
-              linkora
+              vervin
             </span>
           </Link>
 
@@ -358,7 +358,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="max-w-xl text-lg leading-relaxed text-gray-500">
-              Linkora membantumu membuat halaman Bio Link yang lebih rapi:
+              Vervin membantumu membuat halaman Bio Link yang lebih rapi:
               mulai dari template yang tersedia, atur identitasmu, tambahkan
               link penting, lalu bagikan lewat satu URL publik.
             </p>
@@ -407,7 +407,7 @@ export default function LandingPage() {
                   <div className="h-3 w-3 rounded-full bg-green-400" />
                   <div className="ml-3 flex h-8 flex-1 items-center overflow-hidden rounded-full bg-gray-100 px-3">
                     <span className="truncate text-xs text-gray-500">
-                      linkora-eight-kappa.vercel.app/belhartrp
+                      vervin.vercel.app/belhartrp
                     </span>
                   </div>
                 </div>
@@ -415,7 +415,7 @@ export default function LandingPage() {
                 <div className="relative h-[520px] w-full overflow-hidden bg-[#f7f3f1]">
                   <iframe
                     src={PUBLIC_PREVIEW_URL}
-                    title="Preview halaman publik Linkora"
+                    title="Preview halaman publik Vervin"
                     className="absolute left-0 top-0 h-[780px] w-full origin-top scale-[0.67] border-0"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -467,7 +467,7 @@ export default function LandingPage() {
               How it works
             </span>
             <h2 className="mt-3 text-4xl font-extrabold text-gray-900">
-              Workflow Linkora dalam 4 langkah
+              Workflow Vervin dalam 4 langkah
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">
               Alur yang sederhana untuk membuat halaman publikmu lebih rapi,
@@ -524,7 +524,7 @@ export default function LandingPage() {
               Template yang tersedia saat ini
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-500">
-              Saat ini Linkora berfokus pada satu template Bio Link, dengan
+              Saat ini Vervin berfokus pada satu template Bio Link, dengan
               pengalaman edit dan publish yang dibuat tetap sederhana, jelas,
               dan siap dikembangkan.
             </p>
@@ -756,10 +756,10 @@ export default function LandingPage() {
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="text-xl font-bold text-white">linkora</span>
+                <span className="text-xl font-bold text-white">Vervin</span>
               </div>
               <p className="max-w-xs text-sm leading-relaxed">
-                Linkora membantu kamu membuat halaman Bio Link yang rapi,
+                Vervin membantu kamu membuat halaman Bio Link yang rapi,
                 sederhana, dan mudah dibagikan.
               </p>
             </div>
@@ -808,7 +808,7 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-xs text-gray-600 sm:flex-row">
-            <span>© {new Date().getFullYear()} Linkora. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} Vervin. All rights reserved.</span>
             <span>
               Created with <span className="text-violet-400">♥</span> by{" "}
               <span className="font-semibold text-gray-400">
