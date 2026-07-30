@@ -8,8 +8,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Linkora",
-  description: "Bio online sederhana dengan Linkora",
+  title: "Vervin",
+  description: "Bio online sederhana dengan Vervin",
 };
 
 const geistSans = Geist({
