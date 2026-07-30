@@ -542,7 +542,7 @@ export default function PublicBiolinkView({
 
                 <div className="js-footer mt-12 text-center">
                   <p className="text-[11px] uppercase tracking-[0.28em] text-[#b7a4a4]">
-                    Crafted with Linkora
+                    Crafted with Vervin
                   </p>
                 </div>
               </div>
