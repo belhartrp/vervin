@@ -22,8 +22,8 @@ export async function generateMetadata({
 
   if (!profile || profile.active_template !== "biolink") {
     return {
-      title: "Linkora",
-      description: "Halaman publik Linkora",
+      title: "Vervin",
+      description: "Halaman publik Vervin",
     };
   }
 
@@ -34,10 +34,10 @@ export async function generateMetadata({
     .maybeSingle();
 
   return {
-    title: `${biolinkProfile?.display_name?.trim() || profile.username} | Linkora`,
+    title: `${biolinkProfile?.display_name?.trim() || profile.username} | Vervin`,
     description:
       biolinkProfile?.bio?.trim() ||
-      `Halaman publik ${profile.username} di Linkora`,
+      `Halaman publik ${profile.username} di Vervin`,
   };
 }
 
