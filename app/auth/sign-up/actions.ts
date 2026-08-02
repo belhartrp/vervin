@@ -11,6 +11,14 @@ function safe(value: unknown) {
   }
 }
 
+function makeUsername(email: string) {
+  return email
+    .split("@")[0]
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, "")
+    .slice(0, 20);
+}
+
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
 
@@ -68,6 +76,28 @@ export async function signUp(formData: FormData) {
 
   if (!result.data.session) {
     redirect("/auth/check-email");
+  }
+
+  // Safety net: pastikan profile ada meski trigger gagal
+  const { data: existingProfile } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("id", result.data.user.id)
+    .maybeSingle();
+
+  if (!existingProfile) {
+    const baseUsername = makeUsername(result.data.user.email ?? email);
+
+    const { error: profileError } = await supabase.from("profiles").insert({
+      id: result.data.user.id,
+      email: result.data.user.email ?? email,
+      username: `${baseUsername}_${result.data.user.id.slice(0, 6)}`,
+      active_template: "biolink",
+    });
+
+    if (profileError) {
+      console.error("[SIGNUP] profile insert error:", profileError.message);
+    }
   }
 
   redirect("/dashboard");
