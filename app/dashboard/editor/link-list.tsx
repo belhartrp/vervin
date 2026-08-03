@@ -27,7 +27,7 @@ export default function LinkList({
 
   if (!links.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-zinc-800 px-4 py-8 text-sm text-zinc-500">
+      <div className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 px-4 py-8 text-center text-sm text-zinc-500">
         Belum ada link. Tambahkan link pertama di form atas.
       </div>
     );
@@ -43,7 +43,7 @@ export default function LinkList({
         return (
           <div
             key={link.id}
-            className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-4"
+            className="rounded-3xl border border-zinc-200 bg-white p-4 shadow-sm"
           >
             <div className="space-y-4">
               <form action={onUpdate} className="space-y-4">
@@ -54,27 +54,27 @@ export default function LinkList({
                     name="title"
                     defaultValue={link.title}
                     disabled={!isEditing}
-                    className="rounded-2xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-white outline-none disabled:opacity-70"
+                    className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100 disabled:opacity-70"
                   />
                   <input
                     name="url"
                     defaultValue={link.url}
                     disabled={!isEditing}
-                    className="rounded-2xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-white outline-none disabled:opacity-70"
+                    className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100 disabled:opacity-70"
                   />
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setEditingId(isEditing ? null : link.id)}
-                      className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white"
+                      className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
                     >
-                      {isEditing ? "Selesai" : "Edit"}
+                      {isEditing ? "Batal" : "Edit"}
                     </button>
 
                     {isEditing ? (
                       <button
                         type="submit"
-                        className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+                        className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700"
                       >
                         Simpan
                       </button>
@@ -83,12 +83,12 @@ export default function LinkList({
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <label className="flex items-center gap-2 text-sm text-zinc-300">
+                  <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-zinc-700">
                     <input
                       type="checkbox"
                       name="is_active"
                       defaultChecked={link.is_active}
-                      className="h-4 w-4 rounded border-zinc-700 bg-zinc-950"
+                      className="h-4 w-4 cursor-pointer rounded border-zinc-300 bg-white text-violet-600 focus:ring-violet-500 disabled:cursor-not-allowed"
                       disabled={!isEditing}
                     />
                     Aktif
@@ -100,11 +100,15 @@ export default function LinkList({
                 <div className="flex gap-2">
                   <form action={onMoveUp}>
                     <input type="hidden" name="id" value={link.id} />
-                    <input type="hidden" name="sort_order" value={link.sort_order ?? 0} />
+                    <input
+                      type="hidden"
+                      name="sort_order"
+                      value={link.sort_order ?? 0}
+                    />
                     <button
                       type="submit"
                       disabled={isFirst}
-                      className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Naik
                     </button>
@@ -112,11 +116,15 @@ export default function LinkList({
 
                   <form action={onMoveDown}>
                     <input type="hidden" name="id" value={link.id} />
-                    <input type="hidden" name="sort_order" value={link.sort_order ?? 0} />
+                    <input
+                      type="hidden"
+                      name="sort_order"
+                      value={link.sort_order ?? 0}
+                    />
                     <button
                       type="submit"
                       disabled={isLast}
-                      className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Turun
                     </button>
@@ -127,7 +135,7 @@ export default function LinkList({
                   <input type="hidden" name="id" value={link.id} />
                   <button
                     type="submit"
-                    className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-red-900 hover:text-red-300"
+                    className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 transition hover:bg-red-100"
                   >
                     Hapus
                   </button>

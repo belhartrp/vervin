@@ -75,15 +75,20 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1.2);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(currentAvatarUrl ?? null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    currentAvatarUrl ?? null
+  );
   const [error, setError] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
   const hasEditor = useMemo(() => Boolean(imageSrc), [imageSrc]);
 
-  const onCropComplete = useCallback((_: unknown, croppedAreaPixelsValue: Area) => {
-    setCroppedAreaPixels(croppedAreaPixelsValue);
-  }, []);
+  const onCropComplete = useCallback(
+    (_: unknown, croppedAreaPixelsValue: Area) => {
+      setCroppedAreaPixels(croppedAreaPixelsValue);
+    },
+    []
+  );
 
   const handlePickFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -139,20 +144,20 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
   return (
     <div className="space-y-4">
       {previewUrl ? (
-        <div className="flex items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-4">
-          <div className="h-16 w-16 overflow-hidden rounded-full border border-zinc-800 bg-zinc-950">
+        <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-4">
+          <div className="h-16 w-16 overflow-hidden rounded-full border border-zinc-200 bg-white">
             <img
               src={previewUrl}
               alt="Preview avatar"
               className="h-full w-full object-cover"
             />
           </div>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-zinc-600">
             Pilih gambar baru lalu atur posisi crop di dalam lingkaran.
           </p>
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-zinc-800 px-4 py-4 text-sm text-zinc-500">
+        <div className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 px-4 py-4 text-sm text-zinc-500">
           Belum ada foto profil.
         </div>
       )}
@@ -163,13 +168,13 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
           type="file"
           accept="image/jpeg,image/png,image/webp"
           onChange={handlePickFile}
-          className="block w-full text-sm text-zinc-400 file:mr-4 file:rounded-xl file:border-0 file:bg-white file:px-4 file:py-2 file:font-semibold file:text-black"
+          className="block w-full text-sm text-zinc-600 file:mr-4 file:cursor-pointer file:rounded-xl file:border-0 file:bg-zinc-100 file:px-4 file:py-2 file:font-semibold file:text-zinc-700 hover:file:bg-zinc-200 transition"
         />
       </div>
 
       {hasEditor ? (
-        <div className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
-          <div className="relative h-[320px] w-full bg-black">
+        <div className="overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm">
+          <div className="relative h-[320px] w-full bg-zinc-100">
             <Cropper
               image={imageSrc ?? ""}
               crop={crop}
@@ -186,7 +191,7 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
 
           <div className="space-y-4 p-4">
             <div>
-              <label className="mb-2 block text-sm text-zinc-300">
+              <label className="mb-2 block text-sm font-medium text-zinc-700">
                 Zoom
               </label>
               <input
@@ -196,7 +201,7 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
                 step={0.01}
                 value={zoom}
                 onChange={(e) => setZoom(Number(e.target.value))}
-                className="w-full accent-white"
+                className="w-full accent-violet-600"
               />
             </div>
 
@@ -205,7 +210,7 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
                 type="button"
                 onClick={handleSave}
                 disabled={isPending}
-                className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isPending ? "Menyimpan..." : "Simpan avatar"}
               </button>
@@ -214,7 +219,7 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
                 type="button"
                 onClick={handleCancel}
                 disabled={isPending}
-                className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Batal
               </button>
@@ -224,7 +229,7 @@ export default function AvatarUploader({ currentAvatarUrl }: Props) {
       ) : null}
 
       {error ? (
-        <div className="rounded-2xl border border-red-900/60 bg-red-950/40 px-4 py-3 text-sm text-red-300">
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
           {error}
         </div>
       ) : null}
