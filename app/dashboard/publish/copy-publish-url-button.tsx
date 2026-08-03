@@ -23,9 +23,9 @@ export default function CopyPublishUrlButton({ value }: Props) {
     <button
       type="button"
       onClick={handleCopy}
-      className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white"
+      className="inline-flex items-center justify-center rounded-2xl border border-violet-200 bg-violet-50 px-5 py-3 text-sm font-semibold text-violet-700 transition hover:bg-violet-100"
     >
-      {copied ? "Tersalin" : "Copy link"}
+      {copied ? "Tersalin!" : "Copy link"}
     </button>
   );
 }
