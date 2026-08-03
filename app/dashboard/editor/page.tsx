@@ -78,17 +78,17 @@ export default async function EditorPage({
   const linkItems: BioLinkItem[] = (links ?? []) as BioLinkItem[];
 
   return (
-    <main className="min-h-screen bg-black px-6 py-12 text-white">
+    <main className="min-h-screen bg-[#F7F5FF] px-6 py-12 text-zinc-900">
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="mb-2 text-sm uppercase tracking-[0.2em] text-zinc-500">
+            <p className="mb-2 text-sm uppercase tracking-[0.2em] text-violet-500">
               Editor
             </p>
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl">
               Edit biolink
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400 md:text-base">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-500 md:text-base">
               Kelola profil utama dan daftar link yang tampil di halaman publikmu.
             </p>
           </div>
@@ -99,7 +99,7 @@ export default async function EditorPage({
                 href={publicUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-zinc-800 px-4 py-3 text-sm text-zinc-300 transition hover:border-zinc-700 hover:text-white"
+                className="rounded-2xl border border-violet-200 bg-white px-4 py-3 text-sm font-medium text-violet-600 transition hover:border-violet-300 hover:bg-violet-50"
               >
                 Lihat publik
               </Link>
@@ -107,7 +107,7 @@ export default async function EditorPage({
 
             <Link
               href="/dashboard/publish"
-              className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+              className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700"
             >
               Ke publish
             </Link>
@@ -115,28 +115,28 @@ export default async function EditorPage({
         </div>
 
         {params?.error ? (
-          <div className="mb-6 rounded-2xl border border-red-900/60 bg-red-950/40 px-4 py-3 text-sm text-red-300">
+          <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {params.error}
           </div>
         ) : null}
 
         {params?.saved || params?.link ? (
-          <div className="mb-6 rounded-2xl border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-300">
+          <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
             Perubahan berhasil disimpan.
           </div>
         ) : null}
 
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
-            <h2 className="text-xl font-semibold">Profil biolink</h2>
-            <p className="mt-2 text-sm text-zinc-400">
+          <section className="rounded-3xl border border-violet-100 bg-white p-6 shadow-sm shadow-violet-100/50">
+            <h2 className="text-xl font-semibold text-zinc-900">Profil biolink</h2>
+            <p className="mt-2 text-sm text-zinc-500">
               Data ini dipakai sebagai identitas utama halaman publik.
             </p>
 
             <form action={updateBioLinkProfile} className="mt-6 space-y-5">
               <div>
                 <label
-                  className="mb-2 block text-sm text-zinc-300"
+                  className="mb-2 block text-sm text-zinc-600"
                   htmlFor="displayName"
                 >
                   Display name
@@ -145,13 +145,13 @@ export default async function EditorPage({
                   id="displayName"
                   name="displayName"
                   defaultValue={profileData.display_name ?? ""}
-                  className="w-full rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-zinc-600"
+                  className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
               </div>
 
               <div>
                 <label
-                  className="mb-2 block text-sm text-zinc-300"
+                  className="mb-2 block text-sm text-zinc-600"
                   htmlFor="bio"
                 >
                   Bio
@@ -161,34 +161,34 @@ export default async function EditorPage({
                   name="bio"
                   rows={4}
                   defaultValue={profileData.bio ?? ""}
-                  className="w-full rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-zinc-600"
+                  className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
               </div>
 
               <button
                 type="submit"
-                className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+                className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700"
               >
                 Simpan profil
               </button>
             </form>
 
             <div className="mt-8 space-y-3">
-              <label className="block text-sm text-zinc-300">Foto profil</label>
+              <label className="block text-sm text-zinc-600">Foto profil</label>
               <AvatarUploader currentAvatarUrl={profileData.avatar_url} />
             </div>
           </section>
 
-          <section className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+          <section className="rounded-3xl border border-violet-100 bg-white p-6 shadow-sm shadow-violet-100/50">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h2 className="text-xl font-semibold">Daftar link</h2>
-                <p className="mt-2 text-sm text-zinc-400">
+                <h2 className="text-xl font-semibold text-zinc-900">Daftar link</h2>
+                <p className="mt-2 text-sm text-zinc-500">
                   Tambah, ubah, aktif/nonaktif, hapus, dan atur urutan link yang tampil di publik.
                 </p>
               </div>
 
-              <div className="rounded-full border border-zinc-800 px-3 py-1 text-xs text-zinc-400">
+              <div className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-medium text-violet-600">
                 {linkItems.length} link
               </div>
             </div>
@@ -201,16 +201,16 @@ export default async function EditorPage({
                 <input
                   name="title"
                   placeholder="Judul link"
-                  className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-zinc-600"
+                  className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
                 <input
                   name="url"
                   placeholder="https://..."
-                  className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-zinc-600"
+                  className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
                 <button
                   type="submit"
-                  className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+                  className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700"
                 >
                   Tambah
                 </button>
