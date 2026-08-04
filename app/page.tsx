@@ -246,6 +246,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white font-sans text-gray-900">
+      {/* HEADER */}
       <header
         className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
           scrolled
@@ -253,7 +254,7 @@ export default function LandingPage() {
             : "bg-transparent"
         }`}
       >
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8 lg:px-10">
           <Link href="/" className="group flex items-center gap-2">
             <svg
               width="28"
@@ -275,7 +276,8 @@ export default function LandingPage() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-8 md:flex">
+          {/* Desktop / large-tablet nav */}
+          <div className="hidden items-center gap-8 lg:flex">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.label}
@@ -294,8 +296,9 @@ export default function LandingPage() {
             </Link>
           </div>
 
+          {/* Mobile + tablet menu button */}
           <button
-            className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 md:hidden"
+            className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 lg:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -317,11 +320,11 @@ export default function LandingPage() {
         </nav>
 
         <div
-          className={`overflow-hidden border-b border-gray-100 bg-white transition-all duration-300 md:hidden ${
+          className={`overflow-hidden border-b border-gray-100 bg-white transition-all duration-300 lg:hidden ${
             mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="flex flex-col gap-4 px-6 py-4">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 sm:px-8">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.label}
@@ -334,7 +337,7 @@ export default function LandingPage() {
             ))}
             <Link
               href="/auth/login"
-              className="rounded-full border-2 border-violet-600 px-5 py-2.5 text-center text-sm font-semibold text-violet-600 transition-all duration-200 hover:bg-violet-600 hover:text-white"
+              className="w-full max-w-xs rounded-full border-2 border-violet-600 px-5 py-2.5 text-center text-sm font-semibold text-violet-600 transition-all duration-200 hover:bg-violet-600 hover:text-white sm:w-auto"
               onClick={() => setMobileMenuOpen(false)}
             >
               Login
@@ -343,12 +346,13 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <section className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-16 pt-20">
-        <div className="grid w-full items-center gap-12 md:grid-cols-2">
+      {/* HERO */}
+      <section className="mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-16 pt-24 sm:px-8 sm:pt-28 lg:px-10 lg:pt-20">
+        <div className="grid w-full items-center gap-12 md:grid-cols-2 md:gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16 xl:gap-24">
           <div>
             <h1
               ref={heroTitleRef}
-              className="mb-8 text-5xl font-extrabold leading-tight text-gray-900 sm:text-6xl"
+              className="mb-6 text-4xl font-extrabold leading-tight text-gray-900 sm:mb-8 sm:text-5xl lg:text-6xl xl:text-7xl"
               style={{ overflow: "hidden" }}
             >
               <span className="block">Satu halaman publik</span>
@@ -357,7 +361,7 @@ export default function LandingPage() {
               <span className="block text-violet-600">yang rapi dan siap dibagikan.</span>
             </h1>
 
-            <p className="max-w-xl text-lg leading-relaxed text-gray-500">
+            <p className="max-w-xl text-base leading-relaxed text-gray-500 sm:text-lg lg:max-w-lg">
               Vervin membantumu membuat halaman Bio Link yang lebih rapi:
               mulai dari template yang tersedia, atur identitasmu, tambahkan
               link penting, lalu bagikan lewat satu URL publik.
@@ -399,7 +403,10 @@ export default function LandingPage() {
           </div>
 
           <div className="flex justify-center md:justify-end">
-            <div ref={heroIllustrationRef} className="relative w-full max-w-md">
+            <div
+              ref={heroIllustrationRef}
+              className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
+            >
               <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl">
                 <div className="flex items-center gap-1.5 border-b border-gray-100 px-4 py-3">
                   <div className="h-3 w-3 rounded-full bg-red-400" />
@@ -412,7 +419,7 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="relative h-[520px] w-full overflow-hidden bg-[#f7f3f1]">
+                <div className="relative h-[420px] w-full overflow-hidden bg-[#f7f3f1] sm:h-[520px] lg:h-[560px]">
                   <iframe
                     src={PUBLIC_PREVIEW_URL}
                     title="Preview halaman publik Vervin"
@@ -424,7 +431,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="absolute -right-4 -top-4 rounded-2xl border border-gray-100 bg-white px-4 py-2 shadow-lg">
+              <div className="absolute -right-2 -top-4 rounded-2xl border border-gray-100 bg-white px-3 py-2 shadow-lg sm:-right-4 sm:px-4">
                 <span className="text-xs font-semibold text-gray-700">
                   Live preview
                 </span>
@@ -434,7 +441,7 @@ export default function LandingPage() {
                 href={PUBLIC_PREVIEW_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute -bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white shadow-xl transition-all duration-200 hover:bg-black"
+                className="absolute -bottom-4 right-2 inline-flex items-center gap-2 rounded-full bg-gray-900 px-3.5 py-2.5 text-xs font-semibold text-white shadow-xl transition-all duration-200 hover:bg-black sm:right-4 sm:px-4 sm:text-sm"
               >
                 Open full preview
                 <svg
@@ -457,29 +464,30 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FEATURES */}
       <section
         id="features"
-        className="bg-gray-50 px-6 py-24 [scroll-margin-top:96px]"
+        className="bg-gray-50 px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
       >
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-16 text-center" data-aos="fade-up">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center sm:mb-16" data-aos="fade-up">
             <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
               How it works
             </span>
-            <h2 className="mt-3 text-4xl font-extrabold text-gray-900">
+            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Workflow Vervin dalam 4 langkah
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">
+            <p className="mx-auto mt-4 max-w-xl text-base text-gray-500 sm:text-lg">
               Alur yang sederhana untuk membuat halaman publikmu lebih rapi,
               lebih konsisten, dan lebih mudah dibagikan.
             </p>
           </div>
 
-          <div className="space-y-28">
+          <div className="space-y-16 sm:space-y-20 lg:space-y-28">
             {FEATURES.map((f, i) => (
               <div
                 key={f.title}
-                className="grid items-center gap-12 md:grid-cols-2"
+                className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16"
                 data-aos={f.img === "right" ? "fade-right" : "fade-left"}
                 data-aos-delay="100"
                 data-aos-once="false"
@@ -490,10 +498,10 @@ export default function LandingPage() {
                     <span className="text-base">{f.icon}</span>
                     Step {i + 1}
                   </div>
-                  <h3 className="mb-4 text-3xl font-extrabold text-gray-900">
+                  <h3 className="mb-4 text-2xl font-extrabold text-gray-900 sm:text-3xl">
                     {f.title}
                   </h3>
-                  <p className="max-w-md text-lg leading-relaxed text-gray-500">
+                  <p className="max-w-md text-base leading-relaxed text-gray-500 sm:text-lg">
                     {f.desc}
                   </p>
                 </div>
@@ -511,26 +519,27 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* TEMPLATES */}
       <section
         id="templates"
-        className="bg-white px-6 py-24 [scroll-margin-top:96px]"
+        className="bg-white px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
       >
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-14 text-center" data-aos="fade-up">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 text-center sm:mb-14" data-aos="fade-up">
             <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
               Template
             </span>
-            <h2 className="mt-3 text-4xl font-extrabold text-gray-900">
+            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Template yang tersedia saat ini
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-500">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-500 sm:text-lg">
               Saat ini Vervin berfokus pada satu template Bio Link, dengan
               pengalaman edit dan publish yang dibuat tetap sederhana, jelas,
               dan siap dikembangkan.
             </p>
           </div>
 
-          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:gap-10 xl:max-w-6xl">
             {TEMPLATES.map((t) => (
               <div
                 key={t.name}
@@ -555,7 +564,7 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-5 bg-white p-5">
+                <div className="flex flex-col gap-5 bg-white p-5 sm:p-6">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <div className="text-base font-semibold text-gray-900">
@@ -638,16 +647,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="faq" className="bg-white px-6 py-24 [scroll-margin-top:96px]">
-        <div className="mx-auto max-w-3xl">
-          <div className="mb-14 text-center" data-aos="fade-up">
+      {/* FAQ */}
+      <section
+        id="faq"
+        className="bg-white px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
+      >
+        <div className="mx-auto max-w-3xl lg:max-w-4xl">
+          <div className="mb-12 text-center sm:mb-14" data-aos="fade-up">
             <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
               FAQ
             </span>
-            <h2 className="mt-3 text-4xl font-extrabold text-gray-900">
+            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Pertanyaan yang sering ditanya
             </h2>
-            <p className="mt-4 text-lg text-gray-500">
+            <p className="mt-4 text-base text-gray-500 sm:text-lg">
               Ringkas, jelas, dan sesuai dengan fitur yang tersedia sekarang.
             </p>
           </div>
@@ -663,12 +676,12 @@ export default function LandingPage() {
                 }`}
               >
                 <button
-                  className="flex w-full items-center justify-between px-6 py-5 text-left"
+                  className="flex w-full items-center justify-between px-5 py-4 text-left sm:px-6 sm:py-5"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   aria-expanded={openFaq === i}
                 >
                   <span
-                    className={`text-base font-semibold transition-colors ${
+                    className={`text-sm font-semibold transition-colors sm:text-base ${
                       openFaq === i ? "text-violet-600" : "text-gray-800"
                     }`}
                   >
@@ -699,7 +712,7 @@ export default function LandingPage() {
                     openFaq === i ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <p className="px-6 pb-5 text-base leading-relaxed text-gray-500">
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-gray-500 sm:px-6 sm:text-base">
                     {faq.a}
                   </p>
                 </div>
@@ -709,19 +722,23 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-gray-950 px-6 py-20 text-white" data-aos="fade-up">
+      {/* CTA */}
+      <section
+        className="bg-gray-950 px-6 py-16 text-white sm:px-8 sm:py-20 lg:px-10"
+        data-aos="fade-up"
+      >
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-5 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="mb-5 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
             Satu halaman publik untuk{" "}
             <span className="text-violet-400">semua link pentingmu</span>
           </h2>
-          <p className="mb-10 text-lg text-gray-400">
+          <p className="mb-10 text-base text-gray-400 sm:text-lg">
             Mulai dari template yang tersedia sekarang, atur identitasmu, lalu
             bagikan URL publikmu sendiri dengan lebih rapi.
           </p>
           <Link
             href="/auth/sign-up"
-            className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-violet-900/30 transition-all duration-200 hover:bg-violet-500"
+            className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-8 py-4 text-base font-semibold text-white shadow-2xl shadow-violet-900/30 transition-all duration-200 hover:bg-violet-500 sm:text-lg"
           >
             Mulai Sekarang — Gratis
             <svg
@@ -742,10 +759,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/5 bg-gray-950 px-6 py-14 text-gray-400">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-10 grid grid-cols-1 gap-10 md:grid-cols-4">
-            <div className="md:col-span-2">
+      {/* FOOTER */}
+      <footer className="border-t border-white/5 bg-gray-950 px-6 py-12 text-gray-400 sm:px-8 sm:py-14 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
+            <div className="sm:col-span-2">
               <div className="mb-4 flex items-center gap-2">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <rect width="28" height="28" rx="7" fill="#7C3AED" />
@@ -857,7 +875,7 @@ function FeatureIllustration({
   const illustrations: Record<string, React.ReactNode> = {
     template: (
       <div
-        className={`w-full max-w-sm rounded-3xl border bg-gradient-to-br p-8 ${c.bg} ${c.border}`}
+        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
       >
         <div className="grid gap-3 rounded-2xl bg-white p-5 shadow-sm">
           <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
@@ -873,7 +891,7 @@ function FeatureIllustration({
     ),
     profile: (
       <div
-        className={`w-full max-w-sm rounded-3xl border bg-gradient-to-br p-8 ${c.bg} ${c.border}`}
+        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
       >
         <div className="rounded-2xl bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center gap-4">
@@ -891,7 +909,7 @@ function FeatureIllustration({
     ),
     links: (
       <div
-        className={`w-full max-w-sm rounded-3xl border bg-gradient-to-br p-8 ${c.bg} ${c.border}`}
+        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
       >
         <div className="space-y-3 rounded-2xl bg-white p-5 shadow-sm">
           {["Instagram", "TikTok", "GitHub"].map((item, i) => (
@@ -913,7 +931,7 @@ function FeatureIllustration({
     ),
     publish: (
       <div
-        className={`relative w-full max-w-sm rounded-3xl border bg-gradient-to-br p-8 ${c.bg} ${c.border}`}
+        className={`relative w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
       >
         <div className="rounded-2xl bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center gap-3">
