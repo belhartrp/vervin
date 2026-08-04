@@ -8,72 +8,87 @@ const PUBLIC_PREVIEW_URL = "https://vervin.vercel.app/belhartrp";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
-  { label: "Template", href: "#templates" },
+  { label: "Templates", href: "#templates" },
   { label: "FAQ", href: "#faq" },
 ];
 
-const FEATURES = [
+// ---- Step-by-step section (matches "Create your page in four easy steps") ----
+const STEPS = [
   {
-    title: "Pilih template yang tersedia",
-    desc: "Mulai dari template yang sudah tersedia untuk halaman publikmu. Saat ini Vervin berfokus pada Bio Link, sambil menyiapkan fondasi untuk template lain ke depannya.",
-    img: "right",
-    icon: "🧩",
-    illustrationKey: "template",
+    tag: "Choose",
+    title: "Choose a Template",
+    desc: "Browse professionally designed templates and pick the one that fits your personal style or purpose.",
+    cta: "See Templates",
+    ctaHref: "#templates",
+    illustrationKey: "choose",
   },
   {
-    title: "Atur identitas halamanmu",
-    desc: "Sesuaikan username, display name, avatar, bio, dan tampilan dasar agar halaman publikmu terasa personal, rapi, dan konsisten.",
-    img: "left",
-    icon: "🎨",
-    illustrationKey: "profile",
+    tag: "Fill",
+    title: "Fill in Your Information",
+    desc: "Simply enter your content from your profile and experience to projects, social links, and more.",
+    illustrationKey: "fill",
   },
   {
-    title: "Tambahkan link pentingmu",
-    desc: "Masukkan link yang ingin kamu tampilkan, atur urutannya, lalu tampilkan konten pentingmu dalam satu halaman publik yang lebih ringkas.",
-    img: "right",
-    icon: "🔗",
-    illustrationKey: "links",
+    tag: "Customize",
+    title: "Customize Your Design",
+    desc: "Adjust colors, fonts, sections, and layouts to create a page that truly represents you.",
+    illustrationKey: "customize",
   },
   {
-    title: "Publish lalu bagikan",
-    desc: "Setelah siap, publish halamanmu dan bagikan satu URL publik yang mudah diakses dari mana saja.",
-    img: "left",
-    icon: "🚀",
+    tag: "Publish & Share",
+    title: "Publish & Share",
+    desc: "Deploy your page instantly and share it with a single public link that works anywhere.",
     illustrationKey: "publish",
   },
 ];
 
-const FAQS = [
-  {
-    q: "Apa yang bisa saya buat di Vervin sekarang?",
-    a: "Saat ini Vervin berfokus pada template Bio Link untuk halaman publik yang ringkas dan mudah dibagikan.",
-  },
-  {
-    q: "Apakah saya perlu coding untuk menggunakannya?",
-    a: "Tidak. Kamu cukup mengatur profil, menambahkan link, lalu membagikan URL publikmu dari dashboard.",
-  },
-  {
-    q: "Apakah saya bisa punya URL publik sendiri?",
-    a: "Bisa. Username akunmu digunakan sebagai bagian dari URL publik, misalnya /username.",
-  },
-  {
-    q: "Apa saja yang bisa saya ubah dari halaman publik saya?",
-    a: "Kamu bisa mengubah identitas dasar seperti username, display name, avatar, bio, serta daftar link yang tampil pada template aktif.",
-  },
-  {
-    q: "Apakah template yang tersedia sudah banyak?",
-    a: "Untuk saat ini, template yang tersedia dan aktif adalah Bio Link. Fokusnya adalah membuat pengalaman edit, publish, dan share tetap rapi dan jelas.",
-  },
-];
-
+// ---- Templates section ----
 const TEMPLATES = [
   {
-    name: "Bio Link",
-    tag: "Active Template",
+    badge: "Bio-Link",
+    name: "Gradient Bio-Link",
+    desc: "Clean layout for showcasing projects",
     color: "from-[#f4e5e7] via-[#f7efe6] to-[#ecd7df]",
     previewUrl: PUBLIC_PREVIEW_URL,
     image: "/images/template-biolink.png",
-    sections: ["Avatar", "Name", "Bio", "Links"],
+    tags: ["Avatar", "Name", "Bio", "Links"],
+  },
+  {
+    badge: "Portfolio",
+    name: "Programmer Portf",
+    desc: "Perfect for developers and designers",
+    color: "from-blue-50 via-slate-50 to-indigo-100",
+    previewUrl: "#",
+    image: "/images/template-portfolio.png",
+    tags: ["Name", "Bio", "Projects", "Qualification"],
+  },
+];
+
+// ---- FAQ section (matches "Everything you need to know") ----
+const FAQS = [
+  {
+    q: "What can I create with Vervin?",
+    a: "You can create portfolios, bio links, CVs, resumes, personal websites, and other professional pages using ready-to-use templates.",
+  },
+  {
+    q: "Do I need coding skills?",
+    a: "No. You can pick a template, fill in your content, and publish your page without writing any code.",
+  },
+  {
+    q: "Can I customize the templates?",
+    a: "Yes. You can adjust colors, fonts, sections, and layouts to match your personal style.",
+  },
+  {
+    q: "Is my page mobile-friendly?",
+    a: "Every template is built to look great on mobile, tablet, and desktop out of the box.",
+  },
+  {
+    q: "How do I publish my page?",
+    a: "Once you're happy with your design, hit publish and your page goes live instantly on a shareable link.",
+  },
+  {
+    q: "Can I edit my page after publishing?",
+    a: "Absolutely. You can keep editing your content and design anytime, and changes go live immediately.",
   },
 ];
 
@@ -89,16 +104,14 @@ export default function LandingPage() {
   const heroCTARef = useRef<HTMLDivElement>(null);
   const heroIllustrationRef = useRef<HTMLDivElement>(null);
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
-
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       document.documentElement.style.scrollBehavior = "";
@@ -116,7 +129,6 @@ export default function LandingPage() {
           resolve();
           return;
         }
-
         const script = document.createElement("script");
         script.src = src;
         script.async = true;
@@ -132,7 +144,6 @@ export default function LandingPage() {
           resolve();
           return;
         }
-
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = href;
@@ -147,16 +158,13 @@ export default function LandingPage() {
             "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
           );
         }
-
         if (!window.AOS) {
           await loadStylesheet("https://unpkg.com/aos@2.3.4/dist/aos.css");
           await loadScript("https://unpkg.com/aos@2.3.4/dist/aos.js");
         }
-
         if (!isMounted || !window.gsap || !window.AOS) return;
 
         const { gsap, AOS } = window;
-
         AOS.init({
           duration: 700,
           easing: "ease-out-cubic",
@@ -164,7 +172,6 @@ export default function LandingPage() {
           mirror: true,
           offset: 60,
         });
-
         setTimeout(() => {
           AOS.refreshHard?.();
         }, 150);
@@ -180,7 +187,6 @@ export default function LandingPage() {
               delay: 0.2,
             });
           }
-
           if (heroCTARef.current) {
             gsap.from(heroCTARef.current, {
               y: 30,
@@ -190,7 +196,6 @@ export default function LandingPage() {
               delay: 0.8,
             });
           }
-
           if (heroIllustrationRef.current) {
             gsap.to(heroIllustrationRef.current, {
               y: -16,
@@ -199,7 +204,6 @@ export default function LandingPage() {
               yoyo: true,
               repeat: -1,
             });
-
             gsap.from(heroIllustrationRef.current, {
               x: 60,
               opacity: 0,
@@ -228,19 +232,12 @@ export default function LandingPage() {
   ) => {
     if (!href.startsWith("#")) return;
     e.preventDefault();
-
     const target = document.querySelector(href);
     if (!target) return;
-
     const headerOffset = 96;
     const top =
       target.getBoundingClientRect().top + window.scrollY - headerOffset;
-
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-
+    window.scrollTo({ top, behavior: "smooth" });
     setMobileMenuOpen(false);
   };
 
@@ -256,27 +253,11 @@ export default function LandingPage() {
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8 lg:px-10">
           <Link href="/" className="group flex items-center gap-2">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 28 28"
-              fill="none"
-              aria-label="Vervin logo"
-            >
-              <rect width="28" height="28" rx="7" fill="#7C3AED" />
-              <path
-                d="M8 14h4m4 0h4M14 8v4m0 4v4"
-                stroke="white"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
             <span className="text-xl font-bold tracking-tight text-gray-900">
               vervin
             </span>
           </Link>
 
-          {/* Desktop / large-tablet nav */}
           <div className="hidden items-center gap-8 lg:flex">
             {NAV_LINKS.map((l) => (
               <Link
@@ -296,20 +277,12 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Mobile + tablet menu button */}
           <button
             className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 lg:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               {mobileMenuOpen ? (
                 <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
               ) : (
@@ -347,171 +320,176 @@ export default function LandingPage() {
       </header>
 
       {/* HERO */}
-      <section className="mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-16 pt-24 sm:px-8 sm:pt-28 lg:px-10 lg:pt-20">
-        <div className="grid w-full items-center gap-12 md:grid-cols-2 md:gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16 xl:gap-24">
-          <div>
-            <h1
-              ref={heroTitleRef}
-              className="mb-6 text-4xl font-extrabold leading-tight text-gray-900 sm:mb-8 sm:text-5xl lg:text-6xl xl:text-7xl"
-              style={{ overflow: "hidden" }}
+      <section className="mx-auto flex min-h-screen max-w-7xl flex-col items-center px-6 pb-16 pt-28 text-center sm:px-8 lg:flex-row lg:gap-16 lg:px-10 lg:pt-20 lg:text-left">
+        <div className="mx-auto max-w-3xl lg:mx-0 lg:max-w-none lg:flex-1">
+          <h1
+            ref={heroTitleRef}
+            className="mb-6 text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            <span className="block">
+              Create your professional page{" "}
+              <span className="text-violet-600">in minutes</span>
+            </span>
+          </h1>
+
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-500 sm:text-lg lg:mx-0">
+            Everything you need to create a professional online presence.
+            Pick a template, add your content, customize it to match your
+            style, and publish it in minutes.
+          </p>
+
+          <div
+            ref={heroCTARef}
+            className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start"
+          >
+            <Link
+              href="/auth/sign-up"
+              className="inline-flex items-center justify-center rounded-full bg-violet-600 px-8 py-3.5 font-semibold text-white shadow-lg shadow-violet-200 transition-all duration-200 hover:bg-violet-700 active:scale-95"
             >
-              <span className="block">Satu halaman publik</span>
-              <span className="block">untuk semua</span>
-              <span className="block text-violet-600">link pentingmu</span>
-              <span className="block text-violet-600">yang rapi dan siap dibagikan.</span>
-            </h1>
-
-            <p className="max-w-xl text-base leading-relaxed text-gray-500 sm:text-lg lg:max-w-lg">
-              Vervin membantumu membuat halaman Bio Link yang lebih rapi:
-              mulai dari template yang tersedia, atur identitasmu, tambahkan
-              link penting, lalu bagikan lewat satu URL publik.
-            </p>
-
-            <div
-              ref={heroCTARef}
-              className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
-            >
-              <Link
-                href="/auth/sign-up"
-                className="inline-flex items-center justify-center rounded-full bg-violet-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-violet-200 transition-all duration-200 hover:bg-violet-700 active:scale-95"
-              >
-                Get Started — Free
-              </Link>
-
-              <Link
-                href="#features"
-                onClick={(e) => handleNavClick(e, "#features")}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 px-7 py-3.5 font-medium text-gray-600 transition-all duration-200 hover:border-gray-400 hover:text-gray-900"
-              >
-                See how it works
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    d="M5 12h14M12 5l7 7-7 7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
+              Get Started
+            </Link>
           </div>
+        </div>
 
-          <div className="flex justify-center md:justify-end">
-            <div
-              ref={heroIllustrationRef}
-              className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
-            >
-              <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl">
-                <div className="flex items-center gap-1.5 border-b border-gray-100 px-4 py-3">
-                  <div className="h-3 w-3 rounded-full bg-red-400" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-400" />
-                  <div className="h-3 w-3 rounded-full bg-green-400" />
-                  <div className="ml-3 flex h-8 flex-1 items-center overflow-hidden rounded-full bg-gray-100 px-3">
-                    <span className="truncate text-xs text-gray-500">
-                      vervin.vercel.app/belhartrp
-                    </span>
+        <div className="mt-14 flex w-full justify-center lg:mt-0 lg:flex-1 lg:justify-end">
+          <div
+            ref={heroIllustrationRef}
+            className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
+          >
+            <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl">
+              <div className="flex items-center gap-1.5 border-b border-gray-100 px-4 py-3">
+                <div className="h-3 w-3 rounded-full bg-red-400" />
+                <div className="h-3 w-3 rounded-full bg-yellow-400" />
+                <div className="h-3 w-3 rounded-full bg-green-400" />
+                <div className="ml-3 flex h-8 flex-1 items-center overflow-hidden rounded-full bg-gray-100 px-3">
+                  <span className="truncate text-xs text-gray-500">
+                    vervin.vercel.app/belhartrp
+                  </span>
+                </div>
+              </div>
+
+              <div className="relative flex h-[460px] w-full flex-col items-center overflow-y-auto bg-gradient-to-b from-[#f7e9ec] to-[#f3dbe2] px-6 py-8 sm:h-[560px] lg:h-[600px]">
+                <div className="mb-4 h-24 w-24 overflow-hidden rounded-full border-4 border-white/60 shadow-md">
+                  <Image
+                    src="/images/avatar-belhartrp.png"
+                    alt="Belhart Rajesky Pasaribu"
+                    width={96}
+                    height={96}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Belhart Rajesky Pasaribu
+                </h3>
+                <span className="mt-1 text-sm font-semibold text-rose-500">
+                  @BELHARTRP
+                </span>
+                <div className="my-3 h-0.5 w-16 rounded-full bg-rose-300" />
+                <p className="text-sm text-gray-600">
+                  Owner of this application 🐱
+                </p>
+
+                <div className="mt-6 w-full space-y-3">
+                  <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-rose-200/60 to-pink-200/60 px-4 py-4">
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Portfolio
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Tap to open
+                      </div>
+                    </div>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-gray-700">
+                      →
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-rose-200/60 to-pink-200/60 px-4 py-4">
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Instagram
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Tap to open
+                      </div>
+                    </div>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-gray-700">
+                      →
+                    </div>
                   </div>
                 </div>
 
-                <div className="relative h-[420px] w-full overflow-hidden bg-[#f7f3f1] sm:h-[520px] lg:h-[560px]">
-                  <iframe
-                    src={PUBLIC_PREVIEW_URL}
-                    title="Preview halaman publik Vervin"
-                    className="absolute left-0 top-0 h-[780px] w-full origin-top scale-[0.67] border-0"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#f7f3f1] to-transparent" />
-                </div>
-              </div>
-
-              <div className="absolute -right-2 -top-4 rounded-2xl border border-gray-100 bg-white px-3 py-2 shadow-lg sm:-right-4 sm:px-4">
-                <span className="text-xs font-semibold text-gray-700">
-                  Live preview
+                <span className="mt-8 text-[10px] font-semibold uppercase tracking-widest text-rose-400">
+                  Crafted with Vervin
                 </span>
               </div>
-
-              <a
-                href={PUBLIC_PREVIEW_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute -bottom-4 right-2 inline-flex items-center gap-2 rounded-full bg-gray-900 px-3.5 py-2.5 text-xs font-semibold text-white shadow-xl transition-all duration-200 hover:bg-black sm:right-4 sm:px-4 sm:text-sm"
-              >
-                Open full preview
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    d="M7 17L17 7M9 7h8v8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
             </div>
+
+            <div className="absolute -right-2 -top-4 rounded-2xl border border-gray-100 bg-white px-3 py-2 shadow-lg sm:-right-4 sm:px-4">
+              <span className="text-xs font-semibold text-gray-700">
+                Live preview
+              </span>
+            </div>
+
+            <a
+              href={PUBLIC_PREVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute -bottom-4 right-2 inline-flex items-center gap-2 rounded-full bg-gray-900 px-3.5 py-2.5 text-xs font-semibold text-white shadow-xl transition-all duration-200 hover:bg-black sm:right-4 sm:px-4 sm:text-sm"
+            >
+              Open full preview
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* STEPS */}
       <section
         id="features"
-        className="bg-gray-50 px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
+        className="bg-white px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="mb-14 text-center sm:mb-16" data-aos="fade-up">
-            <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
-              How it works
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Workflow Vervin dalam 4 langkah
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-gray-500 sm:text-lg">
-              Alur yang sederhana untuk membuat halaman publikmu lebih rapi,
-              lebih konsisten, dan lebih mudah dibagikan.
-            </p>
-          </div>
+          <h2
+            className="mb-16 text-center text-3xl font-extrabold text-gray-900 sm:mb-20 sm:text-4xl lg:text-5xl"
+            data-aos="fade-up"
+          >
+            Create your page{" "}
+            <span className="text-violet-600">in four easy steps</span>
+          </h2>
 
           <div className="space-y-16 sm:space-y-20 lg:space-y-28">
-            {FEATURES.map((f, i) => (
+            {STEPS.map((s, i) => (
               <div
-                key={f.title}
+                key={s.title}
                 className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16"
-                data-aos={f.img === "right" ? "fade-right" : "fade-left"}
+                data-aos={i % 2 === 0 ? "fade-right" : "fade-left"}
                 data-aos-delay="100"
                 data-aos-once="false"
                 data-aos-mirror="true"
               >
-                <div className={f.img === "left" ? "md:order-2" : ""}>
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-100 bg-violet-50 px-4 py-1.5 text-sm font-semibold text-violet-600">
-                    <span className="text-base">{f.icon}</span>
-                    Step {i + 1}
-                  </div>
-                  <h3 className="mb-4 text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                    {f.title}
+                <div className={i % 2 === 1 ? "md:order-2" : ""}>
+                  <h3 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+                    <span className="text-violet-600">{s.tag}</span>
+                    {s.tag !== s.title ? ` ${s.title.replace(s.tag, "")}` : ""}
                   </h3>
-                  <p className="max-w-md text-base leading-relaxed text-gray-500 sm:text-lg">
-                    {f.desc}
+                  <p className="mb-5 max-w-md text-base leading-relaxed text-gray-500 sm:text-lg">
+                    {s.desc}
                   </p>
+                  {s.cta && (
+                    <Link
+                      href={s.ctaHref || "#"}
+                      onClick={(e) => s.ctaHref && handleNavClick(e, s.ctaHref)}
+                      className="inline-flex items-center justify-center rounded-full border-2 border-violet-600 px-6 py-2.5 text-sm font-semibold text-violet-600 transition-all duration-200 hover:bg-violet-600 hover:text-white"
+                    >
+                      {s.cta}
+                    </Link>
+                  )}
                 </div>
 
-                <div
-                  className={`flex justify-center ${
-                    f.img === "left" ? "md:order-1" : ""
-                  }`}
-                >
-                  <FeatureIllustration type={f.illustrationKey} index={i} />
+                <div className={`flex justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
+                  <StepIllustration type={s.illustrationKey} index={i} />
                 </div>
               </div>
             ))}
@@ -522,24 +500,30 @@ export default function LandingPage() {
       {/* TEMPLATES */}
       <section
         id="templates"
-        className="bg-white px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
+        className="bg-gray-50 px-6 py-20 [scroll-margin-top:96px] sm:px-8 sm:py-24 lg:px-10"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center sm:mb-14" data-aos="fade-up">
-            <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
-              Template
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Template yang tersedia saat ini
+          <div className="mb-10 text-center" data-aos="fade-up">
+            <h2 className="mx-auto max-w-3xl text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">
+              Start with a{" "}
+              <span className="text-violet-600">
+                professionally designed template
+              </span>
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-500 sm:text-lg">
-              Saat ini Vervin berfokus pada satu template Bio Link, dengan
-              pengalaman edit dan publish yang dibuat tetap sederhana, jelas,
-              dan siap dikembangkan.
+            <p className="mx-auto mt-5 max-w-2xl text-base text-gray-500 sm:text-lg">
+              Choose from a growing collection of templates for portfolios,
+              bio links, CVs, resumes, personal websites, and more. Pick one
+              that matches your style, then make it your own.
             </p>
+            <Link
+              href="#templates"
+              className="mt-6 inline-flex items-center justify-center rounded-full border-2 border-violet-600 px-6 py-2.5 text-sm font-semibold text-violet-600 transition-all duration-200 hover:bg-violet-600 hover:text-white"
+            >
+              All Templates
+            </Link>
           </div>
 
-          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:gap-10 xl:max-w-6xl">
+          <div className="mx-auto mt-14 grid max-w-5xl gap-8 sm:grid-cols-2 lg:gap-10 xl:max-w-6xl">
             {TEMPLATES.map((t) => (
               <div
                 key={t.name}
@@ -548,11 +532,13 @@ export default function LandingPage() {
                 data-aos-once="false"
                 data-aos-mirror="true"
               >
-                <div
-                  className={`relative aspect-[4/3] bg-gradient-to-br ${t.color} p-5`}
-                >
-                  <div className="h-full rounded-[28px] border border-white/50 bg-white/50 p-4 backdrop-blur-sm">
-                    <div className="relative h-full w-full overflow-hidden rounded-[22px] shadow-sm">
+                <div className="absolute left-5 top-5 z-10 rounded-full bg-gray-900 px-3 py-1 text-xs font-semibold text-white">
+                  {t.badge}
+                </div>
+
+                <div className={`relative aspect-[4/3] bg-gradient-to-br ${t.color} p-5`}>
+                  <div className="h-full rounded-[24px] border border-white/50 bg-white/50 p-3 backdrop-blur-sm">
+                    <div className="relative h-full w-full overflow-hidden rounded-[18px] shadow-sm">
                       <Image
                         src={t.image}
                         alt={`${t.name} preview`}
@@ -564,85 +550,42 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-5 bg-white p-5 sm:p-6">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <div className="text-base font-semibold text-gray-900">
-                        {t.name}
-                      </div>
-                      <div className="mt-1 text-sm text-gray-400">{t.tag}</div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3">
-                      <span className="rounded-full border border-violet-100 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-600">
-                        Available now
-                      </span>
-                      <a
-                        href={t.previewUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-violet-200 hover:text-violet-700"
-                      >
-                        Preview asli
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            d="M7 17L17 7M9 7h8v8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </a>
-                    </div>
+                <div className="flex flex-col gap-4 bg-white p-5 sm:p-6">
+                  <div>
+                    <div className="text-lg font-bold text-gray-900">{t.name}</div>
+                    <div className="mt-1 text-sm text-gray-500">{t.desc}</div>
                   </div>
 
-                  <div>
-                    <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
-                      Sections
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {t.sections.map((section) => (
-                        <span
-                          key={section}
-                          className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-semibold text-gray-600"
-                        >
-                          {section}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    {t.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-violet-100 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <a
+                      href={t.previewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 rounded-full border border-gray-200 px-5 py-2.5 text-center text-sm font-semibold text-gray-700 transition hover:border-violet-200 hover:text-violet-700"
+                    >
+                      Preview
+                    </a>
+                    <Link
+                      href="/auth/sign-up"
+                      className="flex-1 rounded-full bg-violet-600 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md shadow-violet-100 transition hover:bg-violet-700"
+                    >
+                      Use Template
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="mt-12 text-center" data-aos="fade-up">
-            <Link
-              href="/auth/sign-up"
-              className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-8 py-4 font-semibold text-white shadow-lg shadow-violet-100 transition-all duration-200 hover:bg-violet-700"
-            >
-              Mulai Gratis Sekarang
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path
-                  d="M5 12h14M12 5l7 7-7 7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
@@ -654,14 +597,12 @@ export default function LandingPage() {
       >
         <div className="mx-auto max-w-3xl lg:max-w-4xl">
           <div className="mb-12 text-center sm:mb-14" data-aos="fade-up">
-            <span className="text-sm font-semibold uppercase tracking-widest text-violet-600">
-              FAQ
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Pertanyaan yang sering ditanya
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              Everything <span className="text-violet-600">you need to know</span>
             </h2>
             <p className="mt-4 text-base text-gray-500 sm:text-lg">
-              Ringkas, jelas, dan sesuai dengan fitur yang tersedia sekarang.
+              Find answers to common questions about creating, customizing,
+              and publishing your page with Vervin.
             </p>
           </div>
 
@@ -695,16 +636,10 @@ export default function LandingPage() {
                     stroke="currentColor"
                     strokeWidth="2.5"
                     className={`ml-4 flex-shrink-0 transition-transform duration-300 ${
-                      openFaq === i
-                        ? "rotate-180 text-violet-600"
-                        : "text-gray-400"
+                      openFaq === i ? "rotate-180 text-violet-600" : "text-gray-400"
                     }`}
                   >
-                    <path
-                      d="M6 9l6 6 6-6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                    <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 <div
@@ -724,163 +659,99 @@ export default function LandingPage() {
 
       {/* CTA */}
       <section
-        className="bg-gray-950 px-6 py-16 text-white sm:px-8 sm:py-20 lg:px-10"
+        className="bg-gray-950 px-6 py-16 text-center text-white sm:px-8 sm:py-20 lg:px-10"
         data-aos="fade-up"
       >
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl">
           <h2 className="mb-5 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
-            Satu halaman publik untuk{" "}
-            <span className="text-violet-400">semua link pentingmu</span>
+            Ready to build your{" "}
+            <span className="text-violet-400">professional page?</span>
           </h2>
           <p className="mb-10 text-base text-gray-400 sm:text-lg">
-            Mulai dari template yang tersedia sekarang, atur identitasmu, lalu
-            bagikan URL publikmu sendiri dengan lebih rapi.
+            Create your portfolio, CV, or bio link in just four simple steps.
           </p>
           <Link
             href="/auth/sign-up"
             className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-8 py-4 text-base font-semibold text-white shadow-2xl shadow-violet-900/30 transition-all duration-200 hover:bg-violet-500 sm:text-lg"
           >
-            Mulai Sekarang — Gratis
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                d="M5 12h14M12 5l7 7-7 7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            Get Started for Free
           </Link>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-white/5 bg-gray-950 px-6 py-12 text-gray-400 sm:px-8 sm:py-14 lg:px-10">
+      <footer className="bg-gray-950 px-6 py-12 text-gray-400 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
             <div className="sm:col-span-2">
-              <div className="mb-4 flex items-center gap-2">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <rect width="28" height="28" rx="7" fill="#7C3AED" />
-                  <path
-                    d="M8 14h4m4 0h4M14 8v4m0 4v4"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="text-xl font-bold text-white">Vervin</span>
-              </div>
+              <div className="mb-4 text-xl font-bold text-white">Vervin</div>
               <p className="max-w-xs text-sm leading-relaxed">
-                Vervin membantu kamu membuat halaman Bio Link yang rapi,
-                sederhana, dan mudah dibagikan.
+                Build portfolios, bio links, CVs, and more with ready-to-use
+                templates in four simple steps.
               </p>
             </div>
 
             <div>
-              <div className="mb-4 text-sm font-semibold text-white">Produk</div>
+              <div className="mb-4 text-sm font-semibold text-white">Product</div>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#features" className="transition-colors hover:text-white">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#templates" className="transition-colors hover:text-white">
-                    Template
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="transition-colors hover:text-white">
-                    FAQ
-                  </a>
-                </li>
+                <li><a href="#features" className="transition-colors hover:text-white">Features</a></li>
+                <li><a href="#templates" className="transition-colors hover:text-white">Templates</a></li>
+                <li><a href="#faq" className="transition-colors hover:text-white">FAQ</a></li>
+                <li><Link href="/auth/login" className="transition-colors hover:text-white">Login</Link></li>
               </ul>
             </div>
 
             <div>
-              <div className="mb-4 text-sm font-semibold text-white">Akses</div>
+              <div className="mb-4 text-sm font-semibold text-white">Resources</div>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/auth/login" className="transition-colors hover:text-white">
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/auth/sign-up" className="transition-colors hover:text-white">
-                    Daftar
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/dashboard" className="transition-colors hover:text-white">
-                    Dashboard
-                  </Link>
-                </li>
+                <li><a href="#templates" className="transition-colors hover:text-white">Templates</a></li>
+                <li><a href="#faq" className="transition-colors hover:text-white">FAQ</a></li>
+                <li><Link href="/blog" className="transition-colors hover:text-white">Blog</Link></li>
+                <li><Link href="/help" className="transition-colors hover:text-white">Help Center</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="mb-4 text-sm font-semibold text-white">Company</div>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/company" className="transition-colors hover:text-white">Company</Link></li>
+                <li><Link href="/contact" className="transition-colors hover:text-white">Contact</Link></li>
+                <li><Link href="/privacy" className="transition-colors hover:text-white">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="transition-colors hover:text-white">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-xs text-gray-600 sm:flex-row">
-            <span>© {new Date().getFullYear()} Vervin. All rights reserved.</span>
-            <span>
-              Created with <span className="text-violet-400">♥</span> by{" "}
-              <span className="font-semibold text-gray-400">
-                Belhart Rajesky Pasaribu
-              </span>
-            </span>
+          <div className="border-t border-white/5 pt-6 text-center text-xs text-gray-600">
+            © {new Date().getFullYear()} Vervin. All rights reserved.
           </div>
         </div>
       </footer>
+
+      <div className="bg-violet-600 px-6 py-3 text-center text-sm font-medium text-white">
+        Created with <span className="text-white">♥</span> by{" "}
+        <span className="font-semibold">Belhart Rajesky Pasaribu</span>
+      </div>
     </div>
   );
 }
 
-function FeatureIllustration({
-  type,
-  index,
-}: {
-  type: string;
-  index: number;
-}) {
+function StepIllustration({ type, index }: { type: string; index: number }) {
   const colors = [
-    {
-      bg: "from-violet-50 to-purple-100",
-      accent: "bg-violet-500",
-      border: "border-violet-200",
-    },
-    {
-      bg: "from-blue-50 to-cyan-100",
-      accent: "bg-blue-500",
-      border: "border-blue-200",
-    },
-    {
-      bg: "from-rose-50 to-pink-100",
-      accent: "bg-rose-500",
-      border: "border-rose-200",
-    },
-    {
-      bg: "from-amber-50 to-orange-100",
-      accent: "bg-amber-500",
-      border: "border-amber-200",
-    },
+    { bg: "from-violet-50 to-purple-100", accent: "bg-violet-500", border: "border-violet-200" },
+    { bg: "from-blue-50 to-cyan-100", accent: "bg-blue-500", border: "border-blue-200" },
+    { bg: "from-rose-50 to-pink-100", accent: "bg-rose-500", border: "border-rose-200" },
+    { bg: "from-amber-50 to-orange-100", accent: "bg-amber-500", border: "border-amber-200" },
   ];
-
   const c = colors[index % colors.length];
 
   const illustrations: Record<string, React.ReactNode> = {
-    template: (
-      <div
-        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
-      >
+    choose: (
+      <div className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}>
         <div className="grid gap-3 rounded-2xl bg-white p-5 shadow-sm">
-          <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-            <div className="mb-2 h-3 w-28 rounded-full bg-gray-300" />
-            <div className="h-2.5 w-20 rounded-full bg-gray-200" />
+          <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4">
+            <div className="mb-2 h-3 w-28 rounded-full bg-violet-300" />
+            <div className="h-2.5 w-20 rounded-full bg-violet-200" />
           </div>
           <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-4">
             <div className="mb-2 h-3 w-24 rounded-full bg-gray-300" />
@@ -889,10 +760,8 @@ function FeatureIllustration({
         </div>
       </div>
     ),
-    profile: (
-      <div
-        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
-      >
+    fill: (
+      <div className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}>
         <div className="rounded-2xl bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center gap-4">
             <div className={`h-14 w-14 rounded-2xl ${c.accent}`} />
@@ -907,63 +776,38 @@ function FeatureIllustration({
         </div>
       </div>
     ),
-    links: (
-      <div
-        className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
-      >
+    customize: (
+      <div className={`w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}>
         <div className="space-y-3 rounded-2xl bg-white p-5 shadow-sm">
-          {["Instagram", "TikTok", "GitHub"].map((item, i) => (
-            <div
-              key={item}
-              className={`flex items-center justify-between rounded-2xl px-4 py-4 ${
-                i === 0 ? "border border-gray-800 bg-[#f9edef]" : "bg-gray-50"
-              }`}
-            >
-              <div>
-                <div className="text-sm font-semibold text-gray-800">{item}</div>
-                <div className="mt-1 text-xs text-gray-400">Tap untuk buka</div>
-              </div>
-              <div className="h-9 w-9 rounded-full bg-white shadow-sm" />
-            </div>
-          ))}
+          <div className="flex gap-2">
+            {["bg-violet-400", "bg-blue-400", "bg-rose-400", "bg-amber-400"].map((cl) => (
+              <div key={cl} className={`h-8 w-8 rounded-full ${cl}`} />
+            ))}
+          </div>
+          <div className="h-2.5 w-full rounded-full bg-gray-100" />
+          <div className="h-2.5 w-3/4 rounded-full bg-gray-100" />
+          <div className="rounded-xl bg-gray-50 px-3 py-3 text-xs font-semibold text-gray-500">
+            Aa | Aa | Aa
+          </div>
         </div>
       </div>
     ),
     publish: (
-      <div
-        className={`relative w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}
-      >
+      <div className={`relative w-full max-w-xs rounded-3xl border bg-gradient-to-br p-6 sm:max-w-sm sm:p-8 lg:max-w-md ${c.bg} ${c.border}`}>
         <div className="rounded-2xl bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center gap-3">
-            <div
-              className={`flex h-10 w-10 items-center justify-center rounded-xl text-lg text-white ${c.accent}`}
-            >
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl text-lg text-white ${c.accent}`}>
               🚀
             </div>
             <div>
-              <div className="text-sm font-bold text-gray-900">
-                Halaman publik siap
-              </div>
-              <div className="text-xs text-gray-400">
-                /belhartrp
-              </div>
+              <div className="text-sm font-bold text-gray-900">Page is live</div>
+              <div className="text-xs text-gray-400">/belhartrp</div>
             </div>
           </div>
           <div className="mb-3 rounded-xl bg-gray-50 p-3">
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <div className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-              URL siap disalin dan dibagikan
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="rounded-lg bg-gray-50 px-3 py-3 text-sm text-gray-600">
-              Template aktif: Bio Link
-            </div>
-            <div className="rounded-lg bg-gray-50 px-3 py-3 text-sm text-gray-600">
-              Profil sudah diisi
-            </div>
-            <div className="rounded-lg bg-gray-50 px-3 py-3 text-sm text-gray-600">
-              Link siap dipublikasikan
+              Link ready to copy and share
             </div>
           </div>
         </div>
