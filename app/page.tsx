@@ -52,7 +52,7 @@ const TEMPLATES = [
     name: "Programmer Portf",
     desc: "Perfect for developers and designers",
     color: "from-blue-50 via-slate-50 to-indigo-100",
-    previewUrl: "/images/template-portfolio.png",
+    previewUrl: "https://belhartrp.vercel.app/",
     image: "/images/template-portfolio.png",
     tags: ["Name", "Bio", "Projects", "Qualification"],
   },
