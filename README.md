@@ -58,8 +58,6 @@ npm run dev
 
 Buka `http://localhost:3000` di browser.
 
-> ⚠️ Jangan pernah mengunggah berkas `.env.local` atau kunci rahasia Supabase ke repository publik.
-
 ## Pembuat
 
 Dibuat oleh **Belhart Rajesky Pasaribu**, mahasiswa Universitas Katolik Santo Thomas, Medan.
